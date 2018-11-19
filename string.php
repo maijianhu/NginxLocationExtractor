@@ -29,3 +29,21 @@ function transformByRe($string) {
     }, $string);
 }
 var_dump(transformByRe($string));
+
+/**
+ * 将一段大写字母转换为小写字母
+ */
+$string = 'HELLO WORLD! HOW ARE YOU!';
+function convert($string) {
+	$length = strlen($string);
+	for ($i = 0; $i < $length; $i ++) {
+		$char = $string[$i];
+		$ord = ord($char);
+		if ($ord >= 65 && $ord <= 90) {
+			$newChar = chr($ord + 32);
+			$string[$i] = $newChar;
+		}
+	}
+	return $string;
+}
+var_dump(convert($string));

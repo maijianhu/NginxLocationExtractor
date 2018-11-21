@@ -1,4 +1,9 @@
 <?php
+/**
+ * rewind->valid->current->key
+ * next->valid->current->key
+ * next->valid
+ */
 class It implements Iterator
 {
     private $data;

@@ -49,6 +49,53 @@ function quickSort($string) {
 var_dump(quickSort($string));
 
 /**
+ * 空间复杂度为O(1)的快排算法
+ * 每次从高位和低位递进扫描，得到依据轴心值左右排序的结果
+ * 下次从轴心位置分开继续快速排序
+ * @see https://baike.baidu.com/item/%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95
+ * @param $string
+ * @param $low
+ * @param $high
+ * @return string
+ */
+function quickSortX(&$string, $low = null, $high = null) {
+    if ($low === null) $low = 0;
+    if ($high === null) $high = strlen($string) - 1;
+
+    if ($low >= $high) {
+        return null;
+    }
+
+    $i = $low;
+    $j = $high;
+
+    $pivot = $low;
+    while ($i < $j) {
+        while ($i < $j && $string[$j] >= $string[$pivot]) {
+            $j --;
+        }
+        if ($j !== $pivot) {
+            swap($string, $j, $pivot);
+            $pivot = $j;
+        }
+
+        while ($i < $j && $string[$i] <= $string[$pivot]) {
+            $i ++;
+        }
+        if ($i !== $pivot) {
+            swap($string, $i, $pivot);
+            $pivot = $i;
+        }
+    }
+
+    quickSortX($string, $low, $pivot - 1);
+    quickSortX($string, $pivot + 1, $high);
+    return $string;
+}
+$stringCopy = $string;
+var_dump(quickSortX($stringCopy));
+
+/**
  * 插入排序
  * 左手拿牌，第一张，第二张，第三张...
  * 3=>35=>345=>1345=>12345=>123456
@@ -89,7 +136,7 @@ function selectionSort($string) {
 }
 var_dump(selectionSort($string));
 
-
+$stringNumber = '55421569878536215489';
 function countSort($string) {
     $length = strlen($string);
     $min = null;
@@ -103,7 +150,8 @@ function countSort($string) {
             $max = $n;
         }
     }
-    $array = array_fill(0, $max, 0);
+
+    $array = array_fill(0, $max + 1, 0);
     for ($i = 0; $i < $length; $i ++) {
         $n = (int) $string[$i];
         $index = $n - $min;

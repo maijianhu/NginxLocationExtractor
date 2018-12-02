@@ -139,4 +139,4 @@ function binarySearchFirstEgt($list, $value) {
     }
     return false;
 }
-var_dump(binarySearchFirstEgt($listA, 7)); c
+var_dump(binarySearchFirstEgt($listA, 7)); 
